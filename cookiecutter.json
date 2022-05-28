@@ -1,0 +1,20 @@
+{
+    "target_name": "Target query language name",
+    "backend_package_name": "{{ cookiecutter.target_name.lower().replace(' ', '').replace('-', '') }}",
+    "backend_name": "{{ cookiecutter.target_name.replace(' ', '').replace('-', '') }}",
+    "backend_class_name": "{{ cookiecutter.backend_name }}Backend",
+    "package_type": [ "backend", "pipeline" ],
+    "package_name": "pySigma-{{ cookiecutter.package_type }}-{{ cookiecutter.backend_package_name }}",
+    "package_description": "pySigma {{ cookiecutter.target_name }} {{ cookiecutter.package_type }}",
+    "author": "Thomas Patzke",
+    "email": "thomas@patzke.org",
+    "license": [ "LGPL-3.0-only", "MIT", "Apache-2.0" ],
+    "github_account": "SigmaHQ",
+    "test_badge": true,
+    "coverage_badge": true,
+    "coverage_gist": "GitHub Gist identifier containing coverage badge JSON expected by shields.io.",
+    "status_badge": true,
+    "status": [ "pre--release-orange", "release-green" ],
+    "additional_output_formats": false,
+    "output_formats": "format1,format2"
+}

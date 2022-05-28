@@ -1,0 +1,2 @@
+from .{{ cookiecutter.backend_package_name }} import {{ cookiecutter.backend_package_name }}_example
+# TODO: add all pipelines that should be exposed to the user of your backend in the import statement above.
