@@ -97,7 +97,7 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     deferred_separator : ClassVar[str] = "\n| "           # String used to join multiple deferred query parts
     deferred_only_query : ClassVar[str] = "*"            # String used as query if final query only contains deferred expression
 
-    # TODO: implement custom classes for query elements not covered by the default backend base.
+    # TODO: implement custom methods for query elements not covered by the default backend base.
     # Documentation: https://sigmahq-pysigma.readthedocs.io/en/latest/Backends.html
 
     {% if cookiecutter.additional_output_formats %}
