@@ -6,7 +6,7 @@ from sigma.types import SigmaCompareExpression
 from sigma.pipelines.{{ cookiecutter.backend_package_name }} import # TODO: add pipeline imports or delete this line
 import sigma
 import re
-from typing import ClassVar, Dict, List, Optional, Tuple, Pattern
+from typing import ClassVar, Dict, Tuple, Pattern
 
 class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     """{{ cookiecutter.target_name }} backend."""
@@ -63,8 +63,8 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
 
     # cidr expressions
     cidr_wildcard : ClassVar[str] = "*"    # Character used as single wildcard
-    cidr_expression : ClassVar[Optional[str]] = "cidrmatch({field}, {value})"    # CIDR expression query as format string with placeholders {field} = {value}
-    cidr_in_list_expression : ClassVar[Optional[str]] = "{field} in ({value})"    # CIDR expression query as format string with placeholders {field} = in({list})
+    cidr_expression : ClassVar[str] = "cidrmatch({field}, {value})"    # CIDR expression query as format string with placeholders {field} = {value}
+    cidr_in_list_expression : ClassVar[str] = "{field} in ({value})"    # CIDR expression query as format string with placeholders {field} = in({list})
 
     # Numeric comparison operators
     compare_op_expression : ClassVar[str] = "{field}{operator}{value}"  # Compare operation query as format string with placeholders {field}, {operator} and {value}
