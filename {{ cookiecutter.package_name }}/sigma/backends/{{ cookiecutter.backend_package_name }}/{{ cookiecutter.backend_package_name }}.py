@@ -57,7 +57,7 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     wildcard_match_expression : ClassVar[str] = "match"      # Special expression if wildcards can't be matched with the eq_token operator
 
     # Regular expressions
-    re_expression : ClassVar[str] = "{field}=~{value}"  # Regular expression query as format string with placeholders {field} and {regex}
+    re_expression : ClassVar[str] = "{field}=~{regex}"  # Regular expression query as format string with placeholders {field} and {regex}
     re_escape_char : ClassVar[str] = "\\"               # Character used for escaping in regular expressions
     re_escape : ClassVar[Tuple[str]] = ()               # List of strings that are escaped
 
