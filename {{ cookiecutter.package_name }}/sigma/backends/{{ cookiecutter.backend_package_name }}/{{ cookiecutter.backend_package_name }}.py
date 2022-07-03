@@ -6,7 +6,7 @@ from sigma.types import SigmaCompareExpression
 from sigma.pipelines.{{ cookiecutter.backend_package_name }} import # TODO: add pipeline imports or delete this line
 import sigma
 import re
-from typing import ClassVar, Dict, List, Optional, Tuple
+from typing import ClassVar, Dict, List, Optional, Tuple, Pattern
 
 class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     """{{ cookiecutter.target_name }} backend."""
