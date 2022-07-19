@@ -1,4 +1,5 @@
 # pySigma Backend Cookiecutter Template
+[![Test](https://github.com/SigmaHQ/cookiecutter-pySigma-backend/actions/workflows/test.yml/badge.svg)](https://github.com/SigmaHQ/cookiecutter-pySigma-backend/actions/workflows/test.yml)
 
 [Cookiecutter](https://github.com/cookiecutter/cookiecutter) template for a
 [pySigma](https://github.com/SigmaHQ/pySigma) [backend](https://sigmahq-pysigma.readthedocs.io/en/latest/Backends.html).
