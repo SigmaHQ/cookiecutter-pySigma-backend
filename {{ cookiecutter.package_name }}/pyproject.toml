@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "{{ cookiecutter.package_name }}"
 version = "0.1.0"
-description = "{{ cookiecutter,package_description }}"
+description = "{{ cookiecutter.package_description }}"
 authors = ["{{ cookiecutter.author }} <{{ cookiecutter.email }}>"]
 license = "{{ cookiecutter.license }}"
 repository = "https://github.com/{{ cookiecutter.github_account }}/{{ cookiecutter.package_name }}"
