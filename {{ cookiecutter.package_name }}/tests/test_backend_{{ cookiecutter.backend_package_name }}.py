@@ -1,4 +1,5 @@
 import pytest
+from sigma.collection import SigmaCollection
 from sigma.backends.{{ cookiecutter.backend_package_name }} import {{ cookiecutter.backend_class_name }}
 
 @pytest.fixture
