@@ -16,6 +16,16 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
 
     # Operator precedence: tuple of Condition{AND,OR,NOT} in order of precedence.
     # The backend generates grouping if required
+    name : ClassVar[str] = "{{ cookiecutter.target_name }} backend"
+    formats : Dict[str, str] = {
+        "default": "Plain {{ cookiecutter.target_name }} queries",
+        {% if cookiecutter.additional_output_formats %}
+        {% for format in cookiecutter.output_formats.split(",") %}
+        "{{ format }}": "'{{ format }}' output format",
+        {% endfor %}
+        {% endif %}
+    }
+
     precedence : ClassVar[Tuple[ConditionItem, ConditionItem, ConditionItem]] = (ConditionNOT, ConditionAND, ConditionOR)
     group_expression : ClassVar[str] = "({expr})"   # Expression for precedence override grouping as format string with {expr} placeholder
 
