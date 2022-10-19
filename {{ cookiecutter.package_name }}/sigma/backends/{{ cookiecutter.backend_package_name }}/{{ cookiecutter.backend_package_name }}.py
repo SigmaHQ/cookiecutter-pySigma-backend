@@ -6,7 +6,7 @@ from sigma.types import SigmaCompareExpression
 from sigma.pipelines.{{ cookiecutter.backend_package_name }} import # TODO: add pipeline imports or delete this line
 import sigma
 import re
-from typing import ClassVar, Dict, Tuple, Pattern, List
+from typing import ClassVar, Dict, Tuple, Pattern, List, Any
 
 class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     """{{ cookiecutter.target_name }} backend."""
@@ -113,15 +113,22 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
 
     {% if cookiecutter.additional_output_formats %}
     {% for format in cookiecutter.output_formats.split(",") %}
-    def finalize_query_{{ format }}(self, rule: SigmaRule, query: str, index: int, state: ConversionState) -> str:
+    def finalize_query_{{ format }}(self, rule: SigmaRule, query: str, index: int, state: ConversionState) -> Any:
         # TODO: implement the per-query output for the output format {{ format }} here. Usually, the generated query is
         # embedded into a template, e.g. a JSON format with additional information from the Sigma rule.
+        # TODO: proper type annotation.
         return query
 
-    def finalize_output_{{ format }}(self, queries: List[str]) -> str:
+    def finalize_output_{{ format }}(self, queries: List[str]) -> Any:
         # TODO: implement the output finalization for all generated queries for the format {{ format }} here. Usually,
         # the single generated queries are embedded into a structure, e.g. some JSON or XML that can be imported into
         # the SIEM.
+        # TODO: proper type annotation. Sigma CLI supports:
+        # - str: output as is.
+        # - bytes: output in file only (e.g. if a zip package is output).
+        # - dict: output serialized as JSON.
+        # - list of str: output each item as is separated by two newlines.
+        # - list of dict: serialize each item as JSON and output all separated by newlines.
         return "\n".join(queries)
     {% endfor %}
     {% endif %}
