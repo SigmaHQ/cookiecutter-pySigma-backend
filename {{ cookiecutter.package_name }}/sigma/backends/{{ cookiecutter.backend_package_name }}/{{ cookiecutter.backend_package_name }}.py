@@ -91,6 +91,10 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     # Null/None expressions
     field_null_expression : ClassVar[str] = "{field} is null"          # Expression for field has null value as format string with {field} placeholder for field name
 
+    # Field existence condition expressions.
+    field_exists_expression : ClassVar[str] = "exists({field})"             # Expression for field existence as format string with {field} placeholder for field name
+    field_not_exists_expression : ClassVar[str] = "notexists({field})"      # Expression for field non-existence as format string with {field} placeholder for field name. If not set, field_exists_expression is negated with boolean NOT.
+
     # Field value in list, e.g. "field in (value list)" or "field containsall (value list)"
     convert_or_as_in : ClassVar[bool] = True                     # Convert OR as in-expression
     convert_and_as_in : ClassVar[bool] = True                    # Convert AND as in-expression
