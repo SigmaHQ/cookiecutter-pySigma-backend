@@ -2,7 +2,7 @@ from sigma.conversion.state import ConversionState
 from sigma.rule import SigmaRule
 from sigma.conversion.base import TextQueryBackend
 from sigma.conditions import ConditionItem, ConditionAND, ConditionOR, ConditionNOT
-from sigma.types import SigmaCompareExpression
+from sigma.types import SigmaCompareExpression, SigmaRegularExpression, SigmaRegularExpressionFlag
 from sigma.pipelines.{{ cookiecutter.backend_package_name }} import # TODO: add pipeline imports or delete this line
 import sigma
 import re
@@ -68,10 +68,23 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     wildcard_match_expression : ClassVar[str] = "match"      # Special expression if wildcards can't be matched with the eq_token operator
 
     # Regular expressions
-    re_expression : ClassVar[str] = "{field}=~{regex}"  # Regular expression query as format string with placeholders {field} and {regex}
+    # Regular expression query as format string with placeholders {field}, {regex}, {flag_x} where x
+    # is one of the flags shortcuts supported by Sigma (currently i, m and s) and refers to the
+    # token stored in the class variable re_flags.
+    re_expression : ClassVar[str] = "{field}=~{regex}"
     re_escape_char : ClassVar[str] = "\\"               # Character used for escaping in regular expressions
     re_escape : ClassVar[Tuple[str]] = ()               # List of strings that are escaped
     re_escape_escape_char : bool = True                 # If True, the escape character is also escaped
+    re_flag_prefix : bool = True                        # If True, the flags are prepended as (?x) group at the beginning of the regular expression, e.g. (?i). If this is not supported by the target, it should be set to False.
+    # Mapping from SigmaRegularExpressionFlag values to static string templates that are used in
+    # flag_x placeholders in re_expression template.
+    # By default, i, m and s are defined. If a flag is not supported by the target query language,
+    # remove it from re_flags or don't define it to ensure proper error handling in case of appearance.
+    re_flags : Dict[SigmaRegularExpressionFlag, str] = {
+        SigmaRegularExpressionFlag.IGNORECASE: "i",
+        SigmaRegularExpressionFlag.MULTILINE : "m",
+        SigmaRegularExpressionFlag.DOTALL    : "s",
+    }
 
     # cidr expressions
     cidr_wildcard : ClassVar[str] = "*"    # Character used as single wildcard
@@ -106,8 +119,8 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
 
     # Value not bound to a field
     unbound_value_str_expression : ClassVar[str] = '"{value}"'   # Expression for string value not bound to a field as format string with placeholder {value}
-    unbound_value_num_expression : ClassVar[str] = '{value}'   # Expression for number value not bound to a field as format string with placeholder {value}
-    unbound_value_re_expression : ClassVar[str] = '_=~{value}'    # Expression for regular expression not bound to a field as format string with placeholder {value}
+    unbound_value_num_expression : ClassVar[str] = '{value}'     # Expression for number value not bound to a field as format string with placeholder {value}
+    unbound_value_re_expression : ClassVar[str] = '_=~{value}'   # Expression for regular expression not bound to a field as format string with placeholder {value} and {flag_x} as described for re_expression
 
     # Query finalization: appending and concatenating deferred query part
     deferred_start : ClassVar[str] = "\n| "               # String used as separator between main query and deferred parts
