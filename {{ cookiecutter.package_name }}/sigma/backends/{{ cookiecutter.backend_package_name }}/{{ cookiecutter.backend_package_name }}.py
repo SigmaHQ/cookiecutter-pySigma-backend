@@ -62,10 +62,10 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     }
 
     # String matching operators. if none is appropriate eq_token is used.
-    startswith_expression : ClassVar[str] = "startswith"
-    endswith_expression   : ClassVar[str] = "endswith"
-    contains_expression   : ClassVar[str] = "contains"
-    wildcard_match_expression : ClassVar[str] = "match"      # Special expression if wildcards can't be matched with the eq_token operator
+    startswith_expression : ClassVar[str] = "{field} startswith {value}"
+    endswith_expression   : ClassVar[str] = "{field} endswith {value}"
+    contains_expression   : ClassVar[str] = "{field} contains {value}"
+    wildcard_match_expression : ClassVar[str] = "{field} match {value}"      # Special expression if wildcards can't be matched with the eq_token operator
 
     # Regular expressions
     # Regular expression query as format string with placeholders {field}, {regex}, {flag_x} where x
