@@ -86,6 +86,15 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
         SigmaRegularExpressionFlag.DOTALL    : "s",
     }
 
+    # Case sensitive string matching expression. String is quoted/escaped like a normal string.
+    # Placeholders {field} and {value} are replaced with field name and quoted/escaped string.
+    case_sensitive_match_expression : ClassVar[str] = "{field} casematch {value}"
+    # Case sensitive string matching operators similar to standard string matching. If not provided,
+    # case_sensitive_match_expression is used.
+    case_sensitive_startswith_expression : ClassVar[str] = "{field} casematch_startswith {value}"
+    case_sensitive_endswith_expression   : ClassVar[str] = "{field} casematch_endswith {value}"
+    case_sensitive_contains_expression   : ClassVar[str] = "{field} casematch_contains {value}"
+
     # cidr expressions
     cidr_wildcard : ClassVar[str] = "*"    # Character used as single wildcard
     cidr_expression : ClassVar[str] = "cidrmatch({field}, {value})"    # CIDR expression query as format string with placeholders {field} = {value}
