@@ -95,10 +95,9 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     case_sensitive_endswith_expression   : ClassVar[str] = "{field} casematch_endswith {value}"
     case_sensitive_contains_expression   : ClassVar[str] = "{field} casematch_contains {value}"
 
-    # cidr expressions
-    cidr_wildcard : ClassVar[str] = "*"    # Character used as single wildcard
-    cidr_expression : ClassVar[str] = "cidrmatch({field}, {value})"    # CIDR expression query as format string with placeholders {field} = {value}
-    cidr_in_list_expression : ClassVar[str] = "{field} in ({value})"    # CIDR expression query as format string with placeholders {field} = in({list})
+    # CIDR expressions: define CIDR matching if backend has native support. Else pySigma expands
+    # CIDR values into string wildcard matches.
+    cidr_expression : ClassVar[Optional[str]] = None  # CIDR expression query as format string with placeholders {field}, {value} (the whole CIDR value), {network} (network part only), {prefixlen} (length of network mask prefix) and {netmask} (CIDR network mask only).
 
     # Numeric comparison operators
     compare_op_expression : ClassVar[str] = "{field}{operator}{value}"  # Compare operation query as format string with placeholders {field}, {operator} and {value}
