@@ -1,7 +1,8 @@
 from sigma.pipelines.common import logsource_windows, windows_logsource_mapping
 from sigma.processing.transformations import AddConditionTransformation, FieldMappingTransformation, DetectionItemFailureTransformation, RuleFailureTransformation, SetStateTransformation
+from sigma.processing.postprocessing import EmbedQueryTransformation
 from sigma.processing.conditions import LogsourceCondition, IncludeFieldCondition, ExcludeFieldCondition, RuleProcessingItemAppliedCondition
-from sigma.processing.pipeline import ProcessingItem, ProcessingPipeline
+from sigma.processing.pipeline import ProcessingItem, ProcessingPipeline, QueryPostprocessingItem
 
 # TODO: the following code is just an example extend/adapt as required.
 # See https://sigmahq-pysigma.readthedocs.io/en/latest/Processing_Pipelines.html for further documentation.
@@ -26,4 +27,14 @@ def {{ cookiecutter.backend_package_name }}_pipeline() -> ProcessingPipeline:   
                 })
             )
         ],
+        postprocessing_items=[
+            QueryPostprocessingItem(
+                transformation=EmbedQueryTransformation(prefix="...", suffix="..."),
+                rule_condition_linking=any,
+                rule_conditions=[
+                ],
+                identifier="example",
+            )
+        ],
+        finalizers=[ConcatenateQueriesFinalizer()],
     )
