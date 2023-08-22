@@ -1,4 +1,5 @@
 from sigma.pipelines.common import logsource_windows, windows_logsource_mapping
+from sigma.pipelines.base import Pipeline
 from sigma.processing.transformations import AddConditionTransformation, FieldMappingTransformation, DetectionItemFailureTransformation, RuleFailureTransformation, SetStateTransformation
 from sigma.processing.postprocessing import EmbedQueryTransformation
 from sigma.processing.conditions import LogsourceCondition, IncludeFieldCondition, ExcludeFieldCondition, RuleProcessingItemAppliedCondition
@@ -7,6 +8,7 @@ from sigma.processing.pipeline import ProcessingItem, ProcessingPipeline, QueryP
 # TODO: the following code is just an example extend/adapt as required.
 # See https://sigmahq-pysigma.readthedocs.io/en/latest/Processing_Pipelines.html for further documentation.
 
+@Pipeline
 def {{ cookiecutter.backend_package_name }}_pipeline() -> ProcessingPipeline:        # Processing pipelines should be defined as functions that return a ProcessingPipeline object.
     return ProcessingPipeline(
         name="{{ cookiecutter.target_name }} example pipeline",
