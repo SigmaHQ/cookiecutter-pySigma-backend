@@ -18,8 +18,6 @@ jobs:
       - name: Install Coookiecutter
         run: python3 -m pip install --user cookiecutter
       - name: Install Poetry
-        uses: abatilo/actions-poetry@v2.0.0
-        with:
-          poetry-version: "1.1"
+        run: pipx install poetry
       - name: Run tests
         run: cookiecutter --no-input .
