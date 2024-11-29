@@ -139,6 +139,62 @@ class {{ cookiecutter.backend_class_name }}(TextQueryBackend):
     deferred_separator : ClassVar[str] = "\n| "           # String used to join multiple deferred query parts
     deferred_only_query : ClassVar[str] = "*"            # String used as query if final query only contains deferred expression
 
+    # Correlations
+    # TODO: delete everything to the correlation end marker if correlations aren't implemented
+    correlation_methods: ClassVar[Dict[str, str]] = {
+        "default": "Test correlation method",
+    }
+    default_correlation_method: ClassVar[str] = "default"
+    default_correlation_query: ClassVar[str] = {"default": "{search}\n{aggregate}\n{condition}"}
+    temporal_correlation_query: ClassVar[str] = {"default": "{search}\n\n{aggregate}\n\n{condition}"}
+
+    correlation_search_single_rule_expression: ClassVar[str] = "{query}"
+    correlation_search_multi_rule_expression: ClassVar[str] = "{queries}"
+    correlation_search_multi_rule_query_expression: ClassVar[
+        str
+    ] = 'subsearch (( {query} | set event_type="{ruleid}"{normalization} ))'
+    correlation_search_multi_rule_query_expression_joiner: ClassVar[str] = "\n"
+
+    correlation_search_field_normalization_expression: ClassVar[str] = " | set {alias}={field}"
+    correlation_search_field_normalization_expression_joiner: ClassVar[str] = ""
+
+    event_count_aggregation_expression: ClassVar[Dict[str, str]] = {
+        "default": "| aggregate window={timespan} count() as event_count{groupby}"
+    }
+    value_count_aggregation_expression: ClassVar[Dict[str, str]] = {
+        "default": "| aggregate window={timespan} value_count({field}) as value_count{groupby}"
+    }
+    temporal_aggregation_expression: ClassVar[Dict[str, str]] = {
+        "default": "| temporal window={timespan} eventtypes={referenced_rules}{groupby}"
+    }
+    temporal_ordered_aggregation_expression: ClassVar[Dict[str, str]] = {
+        "default": "| temporal ordered=true window={timespan} eventtypes={referenced_rules}{groupby}"
+    }
+
+    timespan_mapping: ClassVar[Dict[str, str]] = {
+        "m": "min",
+    }
+    referenced_rules_expression: ClassVar[Dict[str, str]] = {"default": "{ruleid}"}
+    referenced_rules_expression_joiner: ClassVar[Dict[str, str]] = {"default": ","}
+
+    groupby_expression: ClassVar[Dict[str, str]] = {"default": " by {fields}"}
+    groupby_field_expression: ClassVar[Dict[str, str]] = {"default": "{field}"}
+    groupby_field_expression_joiner: ClassVar[Dict[str, str]] = {"default": ", "}
+
+    event_count_condition_expression: ClassVar[Dict[str, str]] = {
+        "default": "| where event_count {op} {count}"
+    }
+    value_count_condition_expression: ClassVar[Dict[str, str]] = {
+        "default": "| where value_count {op} {count}"
+    }
+    temporal_condition_expression: ClassVar[Dict[str, str]] = {
+        "default": "| where eventtype_count {op} {count}"
+    }
+    temporal_ordered_condition_expression: ClassVar[Dict[str, str]] = {
+        "default": "| where eventtype_count {op} {count} and eventtype_order={referenced_rules}"
+    }
+    ### Correlation end ###
+
     # TODO: implement custom methods for query elements not covered by the default backend base.
     # Documentation: https://sigmahq-pysigma.readthedocs.io/en/latest/Backends.html
 
