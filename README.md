@@ -106,13 +106,40 @@ Finally create an authentication token.
 With the template configuration you need to configure the following secrets in your repository:
 
 * `GIST_SECRET` (optional): the secret of the GitHub Gist containing the coverage badge information.
-* `TEST_PYPI_API_TOKEN` (optional but recommended): PyPI token for deployment to [test instance](https://test.pypi.org/).
-* `PYPI_API_TOKEN`: PyPI token for deployment to [productive instance](https://pypi.org/).
+
+For publishing PyPI packages with the configuration described below, create a new environment named `release` in the
+settings of the GitHub repository. No further settings are required.
+
+#### Publishing Configuration
+
+The recommended method for authentication of the publisher is the trusted publisher
+management. This enables secure publishing configuration without the usage
+of API tokens.
+
+To configure a trusted publisher scroll to the section *Add a new pending publisher* on the [trusted publisher
+management](https://pypi.org/manage/account/publishing/) page ([test
+PyPI](https://test.pypi.org/manage/account/publishing/)) with the following parameters:
+
+* *Project Name*: the name of the project. Example: `pySigma-backend-foobar`.
+* *Owner*: the GitHub account name or organization that hosts the repository from where the releases will be pushed.
+  Example: `SigmaHQ`.
+* *Repository*: The name of the repository, usually the same as the project name.
+* *Workflow name*: `release.yml`
+* *Environment name*: `release` (must be configured in repository as described above)
 
 #### Release
 
+The publishing from the repository works as follows
+
 1. Conduct a test release by tagging the commit with a version tag in the format `vx.y.z`, e.g. `v0.1.0`. This version
    has to be in sync with the version parameter of pyproject.toml.
-1. If the test deployment finishes successfully, create a GitHub release from this tag to publish it to the productive PyPI.
+1. If the test deployment finishes successfully, create a GitHub release from this tag to publish it to the productive
+   PyPI.
 
-After the first release the authentication token should be regenerated with a scope restricted to the backend package.
+#### Addition to the SigmaHQ Plugin Directory
+
+SigmaHQ contains a [SigmaHQ plugin directory](https://github.com/SigmaHQ/pySigma-plugin-directory) that is used by Sigma
+CLI and can be used by other tools too by usage of the plugin API integration in pySigma. To make the plugin
+discoverable, it has to be added by a pull request that can be [conducted directly from the repository by usage of the
+edit function](https://github.com/SigmaHQ/pySigma-plugin-directory/edit/main/pySigma-plugins-v1.json). Check the
+documentation of the plugin directory repository to get more details.
