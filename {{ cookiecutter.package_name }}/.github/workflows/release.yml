@@ -30,10 +30,10 @@ jobs:
       - name: Build packages
         run: poetry build
       - name: Publish to test PyPI
-        if: ${{ github.event_name == 'push' }}
+        if: ${{ '${{' }} github.event_name == 'push' {{ '}}' }}
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository-url: https://test.pypi.org/legacy/
       - name: Publish to PyPI
-        if: ${{ github.event_name == 'release' }}
+        if: ${{ '${{' }} github.event_name == 'release' {{ '}}' }}
         uses: pypa/gh-action-pypi-publish@release/v1
