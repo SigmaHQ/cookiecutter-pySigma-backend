@@ -10,7 +10,7 @@ packages = [
 ]
 
 [tool.poetry.dependencies]
-python = "^3.13"
+python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 defusedxml = "^0.7"
