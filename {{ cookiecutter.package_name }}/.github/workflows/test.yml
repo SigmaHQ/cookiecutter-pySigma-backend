@@ -30,7 +30,7 @@ jobs:
         run: poetry run python print-coverage.py >> $GITHUB_ENV
       - name: Create coverage badge
         if: {{ '${{' }} github.repository == '{{ cookiecutter.github_account }}/{{ cookiecutter.package_name }}' && github.event_name == 'push' && runner.os == 'Linux' }}
-        uses: schneegans/dynamic-badges-action@1.7.0
+        uses: schneegans/dynamic-badges-action@v1.7.0
         with:
           auth: {{ '${{ secrets.GIST_SECRET }}' }}
           gistID: {{ cookiecutter.coverage_gist }}
