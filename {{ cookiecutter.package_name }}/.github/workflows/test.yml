@@ -38,3 +38,5 @@ jobs:
           label: Coverage
           message: {{ '${{ env.COVERAGE }}' }}
           color: {{ '${{ env.COVERAGE_COLOR }}' }}
+      - name: Run Sigma CLI integration test
+        run: sh 'tests/test_sigma_cli_integration_{{ cookiecutter.backend_package_name }}.sh'
