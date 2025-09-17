@@ -8,18 +8,18 @@ on:
 
 jobs:
   build-and-publish:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     environment: release
     permissions:
       id-token: write
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v5
       - name: Install Poetry
         run: pipx install poetry
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v6
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - name: Verify versioning
         run: |
           [ "$(poetry version -s)" == "${GITHUB_REF#refs/tags/v}" ]
