@@ -4,6 +4,7 @@ from sigma.processing.transformations import AddConditionTransformation, FieldMa
 from sigma.processing.postprocessing import EmbedQueryTransformation
 from sigma.processing.conditions import LogsourceCondition, IncludeFieldCondition, ExcludeFieldCondition, RuleProcessingItemAppliedCondition
 from sigma.processing.pipeline import ProcessingItem, ProcessingPipeline, QueryPostprocessingItem
+from sigma.processing.finalization import ConcatenateQueriesFinalizer
 
 # TODO: the following code is just an example extend/adapt as required.
 # See https://sigmahq-pysigma.readthedocs.io/en/latest/Processing_Pipelines.html for further documentation.
